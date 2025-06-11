@@ -51,7 +51,7 @@
 ### Optional
 - [ ] 📷 Camera or binoculars
 - [ ] 🎶 Offline music playlist
-- [ ] 🧾 Vehicle RC book, insurance, PUC copy
+- [ ] 🧾 Vehicle RC book, insurance, E-pass, may be puc 
 - [ ] 🧴 Sunscreen and lip balm
 
 ---
