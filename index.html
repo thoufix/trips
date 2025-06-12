@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kodaikanal Trip Checklist</title>
+  <title>Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</title>
   <style>
     body {
       background-color: #111;
@@ -14,11 +14,6 @@
     h1, h2, h3 {
       color: #0f0;
     }
-    label {
-      display: block;
-      margin: 8px 0;
-      font-size: 1.1em;
-    }
     .done {
       text-decoration: line-through;
       opacity: 0.6;
@@ -26,100 +21,88 @@
     table {
       border-collapse: collapse;
       width: 100%;
-      margin-top: 1rem;
     }
     th, td {
       border: 1px solid #444;
       padding: 10px;
-      text-align: left;
     }
     th {
       background-color: #222;
     }
-    section {
-      margin-top: 2em;
-      padding: 1em;
-      border-top: 2px solid #333;
+    label {
+      display: block;
+    }
+    ul {
+      margin: 0 0 1em 1em;
     }
   </style>
 </head>
 <body>
 
-  <h1>🧭 Kodaikanal Trip Checklist</h1>
-  <div id="checklist"></div>
+  <h1>✅ Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</h1>
 
-  <section>
-    <h2>🗓️ Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</h2>
-    <table>
-      <tr><th>Time</th><th>Activity</th></tr>
-      <tr><td>4:00 AM</td><td>Wake up, get ready, pack food/water, check vehicle essentials</td></tr>
-      <tr><td>4:45 AM</td><td>Load the car, ensure fuel, charge phones, carry jackets</td></tr>
-      <tr><td>5:00 AM</td><td>🚗 Depart from <strong>Puthanatham</strong></td></tr>
-      <tr><td>7:30 AM</td><td>Tea & restroom break near <strong>Dindigul bypass</strong></td></tr>
-      <tr><td>9:30 AM</td><td>Reach <strong>Kodaikanal</strong>, park near lake area</td></tr>
-      <tr><td>10:00 AM</td><td>Walk around <strong>Kodaikanal Lake</strong> or optional boating</td></tr>
-      <tr><td>11:00 AM</td><td>Visit <strong>Coaker’s Walk</strong> (₹20/person)</td></tr>
-      <tr><td>12:00 PM</td><td>Visit <strong>Bryant Park</strong> (₹30 approx)</td></tr>
-      <tr><td>1:00 PM</td><td>🍱 Lunch – homemade or local veg hotel (Astoria Veg)</td></tr>
-      <tr><td>2:00 PM</td><td>Visit <strong>Pine Forest</strong>, <strong>Moir Point</strong></td></tr>
-      <tr><td>3:30 PM</td><td>Tea/snack break at roadside café or viewpoint</td></tr>
-      <tr><td>4:00–5:30 PM</td><td>Optional time buffer: Relax, shopping, chocolate factory</td></tr>
-      <tr><td>6:00 PM</td><td>🛣️ Start return journey to Puthanatham</td></tr>
-      <tr><td>8:30–9:00 PM</td><td>Reach home</td></tr>
-    </table>
-  </section>
+  <h2>🗓️ Itinerary</h2>
+  <table id="itinerary">
+    <tr><th>Done?</th><th>Time</th><th>Activity</th></tr>
+    <tr><td><input type="checkbox" id="task0"></td><td>4:00 AM</td><td id="desc0">Wake up, get ready, pack food/water, check vehicle essentials</td></tr>
+    <tr><td><input type="checkbox" id="task1"></td><td>4:45 AM</td><td id="desc1">Load the car, ensure fuel, charge phones, carry jackets</td></tr>
+    <tr><td><input type="checkbox" id="task2"></td><td>5:00 AM</td><td id="desc2">🚗 Depart from <strong>Puthanatham</strong></td></tr>
+    <tr><td><input type="checkbox" id="task3"></td><td>7:30 AM</td><td id="desc3">Tea & restroom break near <strong>Dindigul bypass</strong></td></tr>
+    <tr><td><input type="checkbox" id="task4"></td><td>9:30 AM</td><td id="desc4">Reach <strong>Kodaikanal</strong>, park near lake area</td></tr>
+    <tr><td><input type="checkbox" id="task5"></td><td>10:00 AM</td><td id="desc5">Walk around <strong>Kodaikanal Lake</strong> or optional boating</td></tr>
+    <tr><td><input type="checkbox" id="task6"></td><td>11:00 AM</td><td id="desc6">Visit <strong>Coaker’s Walk</strong> (₹20/person)</td></tr>
+    <tr><td><input type="checkbox" id="task7"></td><td>12:00 PM</td><td id="desc7">Visit <strong>Bryant Park</strong> (₹30 approx)</td></tr>
+    <tr><td><input type="checkbox" id="task8"></td><td>1:00 PM</td><td id="desc8">🍱 Lunch – homemade or local veg hotel (Astoria Veg)</td></tr>
+    <tr><td><input type="checkbox" id="task9"></td><td>2:00 PM</td><td id="desc9">Visit <strong>Pine Forest</strong>, <strong>Moir Point</strong></td></tr>
+    <tr><td><input type="checkbox" id="task10"></td><td>3:30 PM</td><td id="desc10">Tea/snack break at roadside café or viewpoint</td></tr>
+    <tr><td><input type="checkbox" id="task11"></td><td>4:00–5:30 PM</td><td id="desc11">Optional time buffer: Relax, shopping, chocolate factory</td></tr>
+    <tr><td><input type="checkbox" id="task12"></td><td>6:00 PM</td><td id="desc12">🛣️ Start return journey to Puthanatham</td></tr>
+    <tr><td><input type="checkbox" id="task13"></td><td>8:30–9:00 PM</td><td id="desc13">Reach home</td></tr>
+  </table>
 
-  <section>
-    <h2>💸 Budget Estimate (10 km/l mileage)</h2>
-    <ul>
-      <li>Diesel (29.2L @ ₹93.35) → ₹2,726</li>
-      <li>Toll Charges → ₹400</li>
-      <li>Food & Snacks → ₹400–600</li>
-      <li>Entry Fees (optional) → ₹50–100</li>
-      <li><strong>Total Estimate:</strong> ₹3,200 – ₹3,500</li>
-    </ul>
-  </section>
+  <h2>💸 Budget Estimate</h2>
+  <ul>
+    <li>Diesel (29.2L @ ₹93.35) → ₹2,726</li>
+    <li>Toll Charges → ₹400</li>
+    <li>Food & Snacks → ₹400–600</li>
+    <li>Entry Fees → ₹50–100</li>
+    <li><strong>Total Estimate:</strong> ₹3,200 – ₹3,500</li>
+  </ul>
 
-  <section>
-    <h2>🎒 Packing Checklist</h2>
-    <h3>Essentials</h3>
-    <ul>
-      <li>🔋 Power bank</li>
-      <li>📲 Offline Google Maps downloaded</li>
-      <li>🧥 Jackets/sweaters</li>
-      <li>☔ Umbrella or raincoat</li>
-      <li>🧃 Water bottles</li>
-      <li>🍱 Food/snacks</li>
-      <li>🗑️ Waste bags</li>
-    </ul>
+  <h2>🎒 Packing Checklist</h2>
+  <h3>Essentials</h3>
+  <ul>
+    <li>[ ] 🔋 Power bank</li>
+    <li>[ ] 📲 Offline Google Maps downloaded</li>
+    <li>[ ] 🧥 Jackets/sweaters</li>
+    <li>[ ] ☔ Umbrella or raincoat</li>
+    <li>[ ] 🧃 Water bottles</li>
+    <li>[ ] 🍱 Food/snacks</li>
+    <li>[ ] 🗑️ Waste bags</li>
+  </ul>
+  <h3>For Shayan (baby)</h3>
+  <ul>
+    <li>[ ] 🍼 Baby food/milk</li>
+    <li>[ ] 👶 Diapers & wipes</li>
+    <li>[ ] 🧸 Blanket/toy</li>
+    <li>[ ] 🧃 Sipper bottle or thermos</li>
+  </ul>
+  <h3>Optional</h3>
+  <ul>
+    <li>[ ] 📷 Camera or binoculars</li>
+    <li>[ ] 🎶 Offline music</li>
+    <li>[ ] 🧾 RC book, insurance, e-pass, PUC</li>
+    <li>[ ] 🧴 Sunscreen, lip balm</li>
+  </ul>
 
-    <h3>For Shayan (baby)</h3>
-    <ul>
-      <li>🍼 Baby food/milk</li>
-      <li>👶 Diapers & wipes</li>
-      <li>🧸 Blanket/toy</li>
-      <li>🧃 Sipper bottle or thermos</li>
-    </ul>
-
-    <h3>Optional</h3>
-    <ul>
-      <li>📷 Camera or binoculars</li>
-      <li>🎶 Offline music</li>
-      <li>🧾 RC book, insurance, e-pass, PUC</li>
-      <li>🧴 Sunscreen, lip balm</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📝 Notes</h2>
-    <ul>
-      <li>Leave by <strong>5:00 AM sharp</strong> to beat crowds</li>
-      <li>Fuel up the <strong>previous day</strong></li>
-      <li>Use <strong>FASTag</strong> at tolls</li>
-      <li>Steady driving saves fuel</li>
-      <li>Avoid lake-side eateries — overpriced</li>
-    </ul>
-  </section>
+  <h2>📝 Notes</h2>
+  <ul>
+    <li>Leave by <strong>5:00 AM sharp</strong> to beat crowds</li>
+    <li>Fuel up the <strong>previous day</strong></li>
+    <li>Use <strong>FASTag</strong> at tolls</li>
+    <li>Steady driving saves fuel</li>
+    <li>Avoid lake-side eateries — overpriced</li>
+  </ul>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
@@ -130,7 +113,7 @@
       authDomain: "expedition-3ad16.firebaseapp.com",
       databaseURL: "https://expedition-3ad16-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "expedition-3ad16",
-      storageBucket: "expedition-3ad16.firebasestorage.app",
+      storageBucket: "expedition-3ad16.appspot.com",
       messagingSenderId: "685511912819",
       appId: "1:685511912819:web:cfe8f12eab20bc915aa906",
       measurementId: "G-7WMV9PZWD4"
@@ -139,45 +122,22 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const tasks = [
-      "✅ Wake up at 4:00 AM",
-      "🚗 Start from Puthanatham by 5:00 AM",
-      "🗺️ Reach Kodaikanal by 9:30 AM",
-      "📸 Visit Coaker’s Walk",
-      "🌲 Visit Pine Forest",
-      "🍴 Lunch at Kodaikanal Lake area",
-      "✅ Enjoy Bryant Park",
-      "🛍️ Buy chocolates or souvenirs",
-      "🔁 Start return journey by 6:00 PM",
-      "🏠 Reach Puthanatham by 10:00 PM"
-    ];
-
-    const checklistContainer = document.getElementById("checklist");
-
-    tasks.forEach((task, index) => {
-      const label = document.createElement("label");
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `task-${index}`;
-
-      const taskRef = ref(db, "tripChecklist/task" + index);
+    for (let i = 0; i <= 13; i++) {
+      const checkbox = document.getElementById(`task${i}`);
+      const desc = document.getElementById(`desc${i}`);
+      const taskRef = ref(db, "tripChecklist/row" + i);
 
       onValue(taskRef, (snapshot) => {
         const isChecked = snapshot.val();
         checkbox.checked = !!isChecked;
-        label.classList.toggle("done", isChecked);
+        desc.classList.toggle("done", isChecked);
       });
 
       checkbox.addEventListener("change", () => {
         set(taskRef, checkbox.checked);
-        label.classList.toggle("done", checkbox.checked);
+        desc.classList.toggle("done", checkbox.checked);
       });
-
-      label.appendChild(checkbox);
-      label.appendChild(document.createTextNode(task));
-      checklistContainer.appendChild(label);
-    });
+    }
   </script>
-
 </body>
 </html>
