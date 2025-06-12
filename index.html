@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kodaikanal Trip Checklist</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #00e676;
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.3);
+      margin-right: 10px;
+    }
+    .done {
+      text-decoration: line-through;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧭 Kodaikanal Trip Checklist</h1>
+  <div id="checklist"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyABpOnB42cNqNKKenb4Kh0M5UDvQxt9x0g",
+      authDomain: "expedition-3ad16.firebaseapp.com",
+      databaseURL: "https://expedition-3ad16-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "expedition-3ad16",
+      storageBucket: "expedition-3ad16.firebasestorage.app",
+      messagingSenderId: "685511912819",
+      appId: "1:685511912819:web:cfe8f12eab20bc915aa906",
+      measurementId: "G-7WMV9PZWD4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const tasks = [
+      "✅ Wake up at 4:00 AM",
+      "🚗 Start from Puthanatham by 5:00 AM",
+      "🗺️ Reach Kodaikanal by 9:30 AM",
+      "📸 Visit Coaker’s Walk",
+      "🌲 Visit Pine Forest",
+      "🍴 Lunch at Kodaikanal Lake area",
+      "🏞️ Enjoy Bryant Park",
+      "🛍️ Buy chocolates or souvenirs",
+      "🔁 Start return journey by 6:00 PM",
+      "🏠 Reach Puthanatham by 10:00 PM"
+    ];
+
+    const checklistContainer = document.getElementById("checklist");
+
+    tasks.forEach((task, index) => {
+      const label = document.createElement("label");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `task-${index}`;
+
+      const taskRef = ref(db, "tripChecklist/task" + index);
+
+      onValue(taskRef, (snapshot) => {
+        const isChecked = snapshot.val();
+        checkbox.checked = !!isChecked;
+        label.className = isChecked ? "done" : "";
+      });
+
+      checkbox.addEventListener("change", () => {
+        set(taskRef, checkbox.checked);
+      });
+
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(task));
+      checklistContainer.appendChild(label);
+    });
+  </script>
+</body>
+</html>
