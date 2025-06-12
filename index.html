@@ -124,28 +124,45 @@
       measurementId: "G-7WMV9PZWD4"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    
-    // Track initialization state
+    let app, db;
     let isInitialized = false;
     let loadedTasks = 0;
     const totalTasks = 14;
+
+    // Debug function
+    function log(message) {
+      console.log(`[Checklist] ${message}`);
+      const statusEl = document.getElementById('status');
+      if (statusEl) {
+        statusEl.textContent = message;
+      }
+    }
 
     // Function to update UI
     function updateTaskUI(taskIndex, isChecked) {
       const checkbox = document.getElementById(`task${taskIndex}`);
       const desc = document.getElementById(`desc${taskIndex}`);
       
+      log(`Updating task ${taskIndex}: ${isChecked ? 'checked' : 'unchecked'}`);
+      
       if (checkbox && desc) {
         checkbox.checked = isChecked;
-        desc.classList.toggle("done", isChecked);
+        if (isChecked) {
+          desc.classList.add("done");
+        } else {
+          desc.classList.remove("done");
+        }
+        log(`Task ${taskIndex} UI updated successfully`);
+      } else {
+        log(`ERROR: Could not find elements for task ${taskIndex}`);
       }
     }
 
     // Function to handle task completion
     function completeTaskLoad() {
       loadedTasks++;
+      log(`Task loaded: ${loadedTasks}/${totalTasks}`);
+      
       if (loadedTasks === totalTasks) {
         // All tasks loaded, enable checkboxes
         for (let i = 0; i < totalTasks; i++) {
@@ -154,11 +171,12 @@
             checkbox.disabled = false;
           }
         }
-        document.getElementById('status').textContent = 'Checklist ready!';
-        setTimeout(() => {
-          document.getElementById('status').style.display = 'none';
-        }, 2000);
+        log('All tasks loaded! Checklist ready.');
         isInitialized = true;
+        setTimeout(() => {
+          const statusEl = document.getElementById('status');
+          if (statusEl) statusEl.style.display = 'none';
+        }, 3000);
       }
     }
 
@@ -166,17 +184,28 @@
     async function initializeTask(taskIndex) {
       const checkbox = document.getElementById(`task${taskIndex}`);
       const desc = document.getElementById(`desc${taskIndex}`);
+      
+      if (!checkbox || !desc) {
+        log(`ERROR: Elements not found for task ${taskIndex}`);
+        completeTaskLoad();
+        return;
+      }
+
       const taskRef = ref(db, `tripChecklist/task${taskIndex}`);
+      log(`Initializing task ${taskIndex}...`);
 
       try {
         // First, get the current value
         const snapshot = await get(taskRef);
         let isChecked = snapshot.val();
         
+        log(`Task ${taskIndex} Firebase value: ${isChecked}`);
+        
         // If no value exists, initialize with false
-        if (isChecked === null) {
+        if (isChecked === null || isChecked === undefined) {
           isChecked = false;
           await set(taskRef, false);
+          log(`Task ${taskIndex} initialized to false`);
         }
         
         // Update UI with loaded state
@@ -185,6 +214,7 @@
         // Set up real-time listener for future changes
         onValue(taskRef, (snapshot) => {
           const currentValue = snapshot.val();
+          log(`Task ${taskIndex} listener fired: ${currentValue}`);
           if (currentValue !== null && isInitialized) {
             updateTaskUI(taskIndex, currentValue);
           }
@@ -193,11 +223,13 @@
         // Add change event listener
         checkbox.addEventListener("change", async () => {
           const newValue = checkbox.checked;
+          log(`Task ${taskIndex} checkbox changed to: ${newValue}`);
           try {
             await set(taskRef, newValue);
             updateTaskUI(taskIndex, newValue);
+            log(`Task ${taskIndex} saved to Firebase: ${newValue}`);
           } catch (error) {
-            console.error(`Error updating task ${taskIndex}:`, error);
+            log(`ERROR saving task ${taskIndex}: ${error.message}`);
             // Revert checkbox if save failed
             checkbox.checked = !newValue;
           }
@@ -206,23 +238,45 @@
         completeTaskLoad();
         
       } catch (error) {
-        console.error(`Error initializing task ${taskIndex}:`, error);
+        log(`ERROR initializing task ${taskIndex}: ${error.message}`);
         completeTaskLoad(); // Still complete the load to prevent hanging
       }
     }
 
-    // Initialize all tasks
+    // Initialize Firebase and checklist
     async function initializeChecklist() {
-      document.getElementById('status').textContent = 'Loading checklist...';
-      
-      // Initialize all tasks
-      for (let i = 0; i < totalTasks; i++) {
-        await initializeTask(i);
+      try {
+        log('Initializing Firebase...');
+        app = initializeApp(firebaseConfig);
+        db = getDatabase(app);
+        log('Firebase initialized successfully');
+        
+        log('Loading checklist data...');
+        
+        // Initialize all tasks
+        for (let i = 0; i < totalTasks; i++) {
+          await initializeTask(i);
+        }
+        
+      } catch (error) {
+        log(`FATAL ERROR: ${error.message}`);
+        console.error('Firebase initialization failed:', error);
       }
     }
 
     // Start initialization when page loads
-    window.addEventListener('load', initializeChecklist);
+    window.addEventListener('load', () => {
+      log('Page loaded, starting initialization...');
+      initializeChecklist();
+    });
+
+    // Also try DOMContentLoaded in case load doesn't fire
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!app) {
+        log('DOMContentLoaded: Starting initialization...');
+        initializeChecklist();
+      }
+    });
   </script>
 </body>
 </html>
