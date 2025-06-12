@@ -35,29 +35,34 @@
     ul {
       margin: 0 0 1em 1em;
     }
+    .loading {
+      color: #666;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <h1>✅ Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</h1>
+  <p id="status" class="loading">Loading checklist...</p>
 
   <h2>🗓️ Itinerary</h2>
   <table id="itinerary">
     <tr><th>Done?</th><th>Time</th><th>Activity</th></tr>
-    <tr><td><input type="checkbox" id="task0"></td><td>4:00 AM</td><td id="desc0">Wake up, get ready, pack food/water, check vehicle essentials</td></tr>
-    <tr><td><input type="checkbox" id="task1"></td><td>4:45 AM</td><td id="desc1">Load the car, ensure fuel, charge phones, carry jackets</td></tr>
-    <tr><td><input type="checkbox" id="task2"></td><td>5:00 AM</td><td id="desc2">🚗 Depart from <strong>Puthanatham</strong></td></tr>
-    <tr><td><input type="checkbox" id="task3"></td><td>7:30 AM</td><td id="desc3">Tea & restroom break near <strong>Dindigul bypass</strong></td></tr>
-    <tr><td><input type="checkbox" id="task4"></td><td>9:30 AM</td><td id="desc4">Reach <strong>Kodaikanal</strong>, park near lake area</td></tr>
-    <tr><td><input type="checkbox" id="task5"></td><td>10:00 AM</td><td id="desc5">Walk around <strong>Kodaikanal Lake</strong> or optional boating</td></tr>
-    <tr><td><input type="checkbox" id="task6"></td><td>11:00 AM</td><td id="desc6">Visit <strong>Coaker’s Walk</strong> (₹20/person)</td></tr>
-    <tr><td><input type="checkbox" id="task7"></td><td>12:00 PM</td><td id="desc7">Visit <strong>Bryant Park</strong> (₹30 approx)</td></tr>
-    <tr><td><input type="checkbox" id="task8"></td><td>1:00 PM</td><td id="desc8">🍱 Lunch – homemade or local veg hotel (Astoria Veg)</td></tr>
-    <tr><td><input type="checkbox" id="task9"></td><td>2:00 PM</td><td id="desc9">Visit <strong>Pine Forest</strong>, <strong>Moir Point</strong></td></tr>
-    <tr><td><input type="checkbox" id="task10"></td><td>3:30 PM</td><td id="desc10">Tea/snack break at roadside café or viewpoint</td></tr>
-    <tr><td><input type="checkbox" id="task11"></td><td>4:00–5:30 PM</td><td id="desc11">Optional time buffer: Relax, shopping, chocolate factory</td></tr>
-    <tr><td><input type="checkbox" id="task12"></td><td>6:00 PM</td><td id="desc12">🛣️ Start return journey to Puthanatham</td></tr>
-    <tr><td><input type="checkbox" id="task13"></td><td>8:30–9:00 PM</td><td id="desc13">Reach home</td></tr>
+    <tr><td><input type="checkbox" id="task0" disabled></td><td>4:00 AM</td><td id="desc0">Wake up, get ready, pack food/water, check vehicle essentials</td></tr>
+    <tr><td><input type="checkbox" id="task1" disabled></td><td>4:45 AM</td><td id="desc1">Load the car, ensure fuel, charge phones, carry jackets</td></tr>
+    <tr><td><input type="checkbox" id="task2" disabled></td><td>5:00 AM</td><td id="desc2">🚗 Depart from <strong>Puthanatham</strong></td></tr>
+    <tr><td><input type="checkbox" id="task3" disabled></td><td>7:30 AM</td><td id="desc3">Tea & restroom break near <strong>Dindigul bypass</strong></td></tr>
+    <tr><td><input type="checkbox" id="task4" disabled></td><td>9:30 AM</td><td id="desc4">Reach <strong>Kodaikanal</strong>, park near lake area</td></tr>
+    <tr><td><input type="checkbox" id="task5" disabled></td><td>10:00 AM</td><td id="desc5">Walk around <strong>Kodaikanal Lake</strong> or optional boating</td></tr>
+    <tr><td><input type="checkbox" id="task6" disabled></td><td>11:00 AM</td><td id="desc6">Visit <strong>Coaker's Walk</strong> (₹20/person)</td></tr>
+    <tr><td><input type="checkbox" id="task7" disabled></td><td>12:00 PM</td><td id="desc7">Visit <strong>Bryant Park</strong> (₹30 approx)</td></tr>
+    <tr><td><input type="checkbox" id="task8" disabled></td><td>1:00 PM</td><td id="desc8">🍱 Lunch – homemade or local veg hotel (Astoria Veg)</td></tr>
+    <tr><td><input type="checkbox" id="task9" disabled></td><td>2:00 PM</td><td id="desc9">Visit <strong>Pine Forest</strong>, <strong>Moir Point</strong></td></tr>
+    <tr><td><input type="checkbox" id="task10" disabled></td><td>3:30 PM</td><td id="desc10">Tea/snack break at roadside café or viewpoint</td></tr>
+    <tr><td><input type="checkbox" id="task11" disabled></td><td>4:00–5:30 PM</td><td id="desc11">Optional time buffer: Relax, shopping, chocolate factory</td></tr>
+    <tr><td><input type="checkbox" id="task12" disabled></td><td>6:00 PM</td><td id="desc12">🛣️ Start return journey to Puthanatham</td></tr>
+    <tr><td><input type="checkbox" id="task13" disabled></td><td>8:30–9:00 PM</td><td id="desc13">Reach home</td></tr>
   </table>
 
   <h2>💸 Budget Estimate</h2>
@@ -106,7 +111,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+    import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyABpOnB42cNqNKKenb4Kh0M5UDvQxt9x0g",
@@ -121,27 +126,103 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    
+    // Track initialization state
+    let isInitialized = false;
+    let loadedTasks = 0;
+    const totalTasks = 14;
 
-    for (let i = 0; i <= 13; i++) {
-      const checkbox = document.getElementById(`task${i}`);
-      const desc = document.getElementById(`desc${i}`);
-      const taskRef = ref(db, "tripChecklist/row" + i);
-
-      onValue(taskRef, (snapshot) => {
-  let isChecked = snapshot.val();
-  if (isChecked === null) {
-    set(taskRef, false);
-    isChecked = false;
-  }
-  checkbox.checked = isChecked;
-  desc.classList.toggle("done", isChecked);
-});
-
-      checkbox.addEventListener("change", () => {
-        set(taskRef, checkbox.checked);
-        desc.classList.toggle("done", checkbox.checked);
-      });
+    // Function to update UI
+    function updateTaskUI(taskIndex, isChecked) {
+      const checkbox = document.getElementById(`task${taskIndex}`);
+      const desc = document.getElementById(`desc${taskIndex}`);
+      
+      if (checkbox && desc) {
+        checkbox.checked = isChecked;
+        desc.classList.toggle("done", isChecked);
+      }
     }
+
+    // Function to handle task completion
+    function completeTaskLoad() {
+      loadedTasks++;
+      if (loadedTasks === totalTasks) {
+        // All tasks loaded, enable checkboxes
+        for (let i = 0; i < totalTasks; i++) {
+          const checkbox = document.getElementById(`task${i}`);
+          if (checkbox) {
+            checkbox.disabled = false;
+          }
+        }
+        document.getElementById('status').textContent = 'Checklist ready!';
+        setTimeout(() => {
+          document.getElementById('status').style.display = 'none';
+        }, 2000);
+        isInitialized = true;
+      }
+    }
+
+    // Initialize each task
+    async function initializeTask(taskIndex) {
+      const checkbox = document.getElementById(`task${taskIndex}`);
+      const desc = document.getElementById(`desc${taskIndex}`);
+      const taskRef = ref(db, `tripChecklist/task${taskIndex}`);
+
+      try {
+        // First, get the current value
+        const snapshot = await get(taskRef);
+        let isChecked = snapshot.val();
+        
+        // If no value exists, initialize with false
+        if (isChecked === null) {
+          isChecked = false;
+          await set(taskRef, false);
+        }
+        
+        // Update UI with loaded state
+        updateTaskUI(taskIndex, isChecked);
+        
+        // Set up real-time listener for future changes
+        onValue(taskRef, (snapshot) => {
+          const currentValue = snapshot.val();
+          if (currentValue !== null && isInitialized) {
+            updateTaskUI(taskIndex, currentValue);
+          }
+        });
+        
+        // Add change event listener
+        checkbox.addEventListener("change", async () => {
+          const newValue = checkbox.checked;
+          try {
+            await set(taskRef, newValue);
+            updateTaskUI(taskIndex, newValue);
+          } catch (error) {
+            console.error(`Error updating task ${taskIndex}:`, error);
+            // Revert checkbox if save failed
+            checkbox.checked = !newValue;
+          }
+        });
+        
+        completeTaskLoad();
+        
+      } catch (error) {
+        console.error(`Error initializing task ${taskIndex}:`, error);
+        completeTaskLoad(); // Still complete the load to prevent hanging
+      }
+    }
+
+    // Initialize all tasks
+    async function initializeChecklist() {
+      document.getElementById('status').textContent = 'Loading checklist...';
+      
+      // Initialize all tasks
+      for (let i = 0; i < totalTasks; i++) {
+        await initializeTask(i);
+      }
+    }
+
+    // Start initialization when page loads
+    window.addEventListener('load', initializeChecklist);
   </script>
 </body>
 </html>
