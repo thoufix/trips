@@ -2,112 +2,361 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</title>
+  <title>EXPEDITION.EXE - Kodaikanal Mission Brief</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+    
+    :root {
+      --neon-green: #00ff41;
+      --neon-cyan: #00ffff;
+      --neon-pink: #ff0080;
+      --neon-yellow: #ffff00;
+      --dark-bg: #0a0a0a;
+      --terminal-bg: #001100;
+      --grid-color: rgba(0, 255, 65, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #111;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 20px;
+      background: linear-gradient(45deg, #0a0a0a 0%, #001a00 50%, #0a0a0a 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      color: var(--neon-green);
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 20px;
       line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: auto;
     }
-    h1, h2, h3 {
-      color: #0f0;
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+      z-index: -1;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .terminal-header {
+      border: 2px solid var(--neon-green);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      background: rgba(0, 17, 0, 0.8);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.3),
+        inset 0 0 20px rgba(0, 255, 65, 0.1);
+      position: relative;
+    }
+
+    .terminal-header::before {
+      content: '● ● ●';
+      position: absolute;
+      top: 8px;
+      right: 15px;
+      color: var(--neon-pink);
+      font-size: 12px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 2.5em;
+      color: var(--neon-cyan);
+      text-shadow: 
+        0 0 10px var(--neon-cyan),
+        0 0 20px var(--neon-cyan),
+        0 0 40px var(--neon-cyan);
+      margin: 0;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--neon-yellow);
+      font-size: 1.1em;
+      margin-top: 10px;
+      text-shadow: 0 0 10px var(--neon-yellow);
+    }
+
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px var(--neon-pink);
+      border-bottom: 2px solid var(--neon-pink);
+      padding-bottom: 10px;
+      margin-top: 40px;
+      font-size: 1.5em;
+      letter-spacing: 2px;
+    }
+
+    h3 {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 1px;
+    }
+
+    .status {
+      text-align: center;
+      color: var(--neon-yellow);
+      font-size: 1.2em;
+      margin: 20px 0;
+      text-shadow: 0 0 10px var(--neon-yellow);
+      animation: pulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.8; }
+      to { opacity: 1; }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(0, 17, 0, 0.6);
+      border: 2px solid var(--neon-green);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    }
+
+    th {
+      background: linear-gradient(45deg, #003300, #001100);
+      color: var(--neon-cyan);
+      padding: 15px 10px;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      text-shadow: 0 0 8px var(--neon-cyan);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 12px 10px;
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    tr:hover td {
+      background: rgba(0, 255, 65, 0.1);
+      box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.1);
+    }
+
     .done {
       text-decoration: line-through;
       opacity: 0.6;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 5px var(--neon-yellow);
     }
-    table {
-      border-collapse: collapse;
-      width: 100%;
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--neon-green);
+      cursor: pointer;
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 5px var(--neon-green));
     }
-    th, td {
-      border: 1px solid #444;
-      padding: 10px;
+
+    input[type="checkbox"]:checked {
+      filter: drop-shadow(0 0 10px var(--neon-green));
     }
-    th {
-      background-color: #222;
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
     }
-    label {
-      display: block;
+
+    .info-panel {
+      background: rgba(0, 17, 0, 0.6);
+      border: 2px solid var(--neon-green);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+      transition: all 0.3s ease;
     }
+
+    .info-panel:hover {
+      box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
+      transform: translateY(-5px);
+    }
+
     ul {
-      margin: 0 0 1em 1em;
+      list-style: none;
+      padding: 0;
     }
-    .loading {
-      color: #666;
-      font-style: italic;
+
+    ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    ul li:hover {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
+      padding-left: 10px;
+    }
+
+    ul li::before {
+      content: '▶ ';
+      color: var(--neon-pink);
+      margin-right: 8px;
+    }
+
+    strong {
+      color: var(--neon-yellow);
+      text-shadow: 0 0 8px var(--neon-yellow);
+    }
+
+    .ascii-art {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--neon-green);
+      text-align: center;
+      margin: 30px 0;
+      font-size: 0.8em;
+      opacity: 0.7;
+      white-space: pre;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      h1 { font-size: 1.8em; }
+      .info-grid { grid-template-columns: 1fr; }
+      table { font-size: 0.9em; }
+      th, td { padding: 8px; }
+    }
+
+    .loading-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(0, 255, 65, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-green));
+      background-size: 200% 100%;
+      animation: loadingAnimation 2s linear infinite;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    @keyframes loadingAnimation {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
   </style>
 </head>
 <body>
+  <div class="terminal-header">
+    <h1>EXPEDITION.EXE</h1>
+    <div class="subtitle">MISSION: KODAIKANAL INFILTRATION // DATE: 2025.06.14</div>
+  </div>
 
-  <h1>✅ Final One-Day Trip Plan: Puthanatham to Kodaikanal (June 14, 2025)</h1>
-  <p id="status" class="loading">Loading checklist...</p>
+  <div id="status" class="status">INITIALIZING MISSION PARAMETERS...</div>
+  <div class="loading-bar">
+    <div id="loadingProgress" class="loading-progress"></div>
+  </div>
 
-  <h2>🗓️ Itinerary</h2>
+  <h2>📡 MISSION TIMELINE</h2>
   <table id="itinerary">
-    <tr><th>Done?</th><th>Time</th><th>Activity</th></tr>
-    <tr><td><input type="checkbox" id="task0" disabled></td><td>4:00 AM</td><td id="desc0">Wake up, get ready, pack food/water, check vehicle essentials</td></tr>
-    <tr><td><input type="checkbox" id="task1" disabled></td><td>4:45 AM</td><td id="desc1">Load the car, ensure fuel, charge phones, carry jackets</td></tr>
-    <tr><td><input type="checkbox" id="task2" disabled></td><td>5:00 AM</td><td id="desc2">🚗 Depart from <strong>Puthanatham</strong></td></tr>
-    <tr><td><input type="checkbox" id="task3" disabled></td><td>7:30 AM</td><td id="desc3">Tea & restroom break near <strong>Dindigul bypass</strong></td></tr>
-    <tr><td><input type="checkbox" id="task4" disabled></td><td>9:30 AM</td><td id="desc4">Reach <strong>Kodaikanal</strong>, park near lake area</td></tr>
-    <tr><td><input type="checkbox" id="task5" disabled></td><td>10:00 AM</td><td id="desc5">Walk around <strong>Kodaikanal Lake</strong> or optional boating</td></tr>
-    <tr><td><input type="checkbox" id="task6" disabled></td><td>11:00 AM</td><td id="desc6">Visit <strong>Coaker's Walk</strong> (₹20/person)</td></tr>
-    <tr><td><input type="checkbox" id="task7" disabled></td><td>12:00 PM</td><td id="desc7">Visit <strong>Bryant Park</strong> (₹30 approx)</td></tr>
-    <tr><td><input type="checkbox" id="task8" disabled></td><td>1:00 PM</td><td id="desc8">🍱 Lunch – homemade or local veg hotel (Astoria Veg)</td></tr>
-    <tr><td><input type="checkbox" id="task9" disabled></td><td>2:00 PM</td><td id="desc9">Visit <strong>Pine Forest</strong>, <strong>Moir Point</strong></td></tr>
-    <tr><td><input type="checkbox" id="task10" disabled></td><td>3:30 PM</td><td id="desc10">Tea/snack break at roadside café or viewpoint</td></tr>
-    <tr><td><input type="checkbox" id="task11" disabled></td><td>4:00–5:30 PM</td><td id="desc11">Optional time buffer: Relax, shopping, chocolate factory</td></tr>
-    <tr><td><input type="checkbox" id="task12" disabled></td><td>6:00 PM</td><td id="desc12">🛣️ Start return journey to Puthanatham</td></tr>
-    <tr><td><input type="checkbox" id="task13" disabled></td><td>8:30–9:00 PM</td><td id="desc13">Reach home</td></tr>
+    <tr><th>STATUS</th><th>TIME</th><th>OBJECTIVE</th></tr>
+    <tr><td><input type="checkbox" id="task0" disabled></td><td>04:00</td><td id="desc0">INITIALIZE: Wake up, gear prep, sustenance pack, vehicle diagnostics</td></tr>
+    <tr><td><input type="checkbox" id="task1" disabled></td><td>04:45</td><td id="desc1">DEPLOYMENT PREP: Load cargo, fuel check, comm devices, thermal gear</td></tr>
+    <tr><td><input type="checkbox" id="task2" disabled></td><td>05:00</td><td id="desc2">🚀 LAUNCH: Depart from <strong>PUTHANATHAM BASE</strong></td></tr>
+    <tr><td><input type="checkbox" id="task3" disabled></td><td>07:30</td><td id="desc3">CHECKPOINT ALPHA: Refuel stop at <strong>Dindigul Bypass</strong></td></tr>
+    <tr><td><input type="checkbox" id="task4" disabled></td><td>09:30</td><td id="desc4">TARGET ACQUIRED: Reach <strong>KODAIKANAL SECTOR</strong>, establish base</td></tr>
+    <tr><td><input type="checkbox" id="task5" disabled></td><td>10:00</td><td id="desc5">RECON ALPHA: Survey <strong>Kodaikanal Lake</strong> perimeter</td></tr>
+    <tr><td><input type="checkbox" id="task6" disabled></td><td>11:00</td><td id="desc6">OBSERVATION POST: <strong>Coaker's Walk</strong> surveillance (₹20/unit)</td></tr>
+    <tr><td><input type="checkbox" id="task7" disabled></td><td>12:00</td><td id="desc7">BOTANICAL SCAN: <strong>Bryant Park</strong> analysis (₹30/unit)</td></tr>
+    <tr><td><input type="checkbox" id="task8" disabled></td><td>13:00</td><td id="desc8">🍽️ REFUEL: Sustenance break - base rations or local provisions</td></tr>
+    <tr><td><input type="checkbox" id="task9" disabled></td><td>14:00</td><td id="desc9">TERRAIN RECON: <strong>Pine Forest</strong> + <strong>Moir Point</strong> expedition</td></tr>
+    <tr><td><input type="checkbox" id="task10" disabled></td><td>15:30</td><td id="desc10">TACTICAL PAUSE: Field refreshments, system check</td></tr>
+    <tr><td><input type="checkbox" id="task11" disabled></td><td>16:00-17:30</td><td id="desc11">BUFFER PROTOCOL: Optional objectives, supply acquisition</td></tr>
+    <tr><td><input type="checkbox" id="task12" disabled></td><td>18:00</td><td id="desc12">🛸 EXTRACTION: Begin return sequence to base</td></tr>
+    <tr><td><input type="checkbox" id="task13" disabled></td><td>20:30-21:00</td><td id="desc13">MISSION COMPLETE: Arrival at home base</td></tr>
   </table>
 
-  <h2>💸 Budget Estimate</h2>
-  <ul>
-    <li>Diesel (29.2L @ ₹93.35) → ₹2,726</li>
-    <li>Toll Charges → ₹400</li>
-    <li>Food & Snacks → ₹400–600</li>
-    <li>Entry Fees → ₹50–100</li>
-    <li><strong>Total Estimate:</strong> ₹3,200 – ₹3,500</li>
-  </ul>
+  <div class="info-grid">
+    <div class="info-panel">
+      <h2>💰 RESOURCE ALLOCATION</h2>
+      <ul>
+        <li>Fuel Costs (29.2L @ ₹93.35) → ₹2,726</li>
+        <li>Transit Fees → ₹400</li>
+        <li>Sustenance & Supplies → ₹400-600</li>
+        <li>Access Permissions → ₹50-100</li>
+        <li><strong>TOTAL BUDGET: ₹3,200 - ₹3,500</strong></li>
+      </ul>
+    </div>
 
-  <h2>🎒 Packing Checklist</h2>
-  <h3>Essentials</h3>
-  <ul>
-    <li>[ ] 🔋 Power bank</li>
-    <li>[ ] 📲 Offline Google Maps downloaded</li>
-    <li>[ ] 🧥 Jackets/sweaters</li>
-    <li>[ ] ☔ Umbrella or raincoat</li>
-    <li>[ ] 🧃 Water bottles</li>
-    <li>[ ] 🍱 Food/snacks</li>
-    <li>[ ] 🗑️ Waste bags</li>
-  </ul>
-  <h3>For Shayan (baby)</h3>
-  <ul>
-    <li>[ ] 🍼 Baby food/milk</li>
-    <li>[ ] 👶 Diapers & wipes</li>
-    <li>[ ] 🧸 Blanket/toy</li>
-    <li>[ ] 🧃 Sipper bottle or thermos</li>
-  </ul>
-  <h3>Optional</h3>
-  <ul>
-    <li>[ ] 📷 Camera or binoculars</li>
-    <li>[ ] 🎶 Offline music</li>
-    <li>[ ] 🧾 RC book, insurance, e-pass, PUC</li>
-    <li>[ ] 🧴 Sunscreen, lip balm</li>
-  </ul>
+    <div class="info-panel">
+      <h2>🎒 MISSION EQUIPMENT</h2>
+      <h3>CRITICAL SYSTEMS</h3>
+      <ul>
+        <li>🔋 Portable power units</li>
+        <li>📲 Offline navigation protocols</li>
+        <li>🧥 Thermal regulation gear</li>
+        <li>☔ Weather protection systems</li>
+        <li>🧃 Hydration modules</li>
+        <li>🍱 Emergency rations</li>
+        <li>🗑️ Environmental cleanup kit</li>
+      </ul>
+      
+      <h3>SHAYAN UNIT SUPPORT</h3>
+      <ul>
+        <li>🍼 Specialized nutrition supply</li>
+        <li>👶 Hygiene maintenance kit</li>
+        <li>🧸 Comfort protocols</li>
+        <li>🧃 Temperature-controlled fluids</li>
+      </ul>
+    </div>
+  </div>
 
-  <h2>📝 Notes</h2>
-  <ul>
-    <li>Leave by <strong>5:00 AM sharp</strong> to beat crowds</li>
-    <li>Fuel up the <strong>previous day</strong></li>
-    <li>Use <strong>FASTag</strong> at tolls</li>
-    <li>Steady driving saves fuel</li>
-    <li>Avoid lake-side eateries — overpriced</li>
-  </ul>
+  <div class="info-panel">
+    <h2>📝 MISSION PROTOCOLS</h2>
+    <ul>
+      <li>LAUNCH WINDOW: <strong>05:00 SHARP</strong> - avoid civilian traffic</li>
+      <li>Pre-mission fuel acquisition mandatory</li>
+      <li>Utilize <strong>FASTag</strong> for efficient toll processing</li>
+      <li>Maintain optimal velocity for fuel efficiency</li>
+      <li>Avoid overpriced lakeside vendors</li>
+    </ul>
+  </div>
+
+  <div class="ascii-art">
+╔══════════════════════════════════════╗
+║  EXPEDITION CONTROL SYSTEM v2.1     ║
+║  STATUS: OPERATIONAL                 ║
+║  NEXT MISSION: KODAIKANAL            ║
+╚══════════════════════════════════════╝
+  </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
@@ -124,159 +373,89 @@
       measurementId: "G-7WMV9PZWD4"
     };
 
-    let app, db;
-    let isInitialized = false;
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    
     let loadedTasks = 0;
     const totalTasks = 14;
 
-    // Debug function
-    function log(message) {
-      console.log(`[Checklist] ${message}`);
-      const statusEl = document.getElementById('status');
-      if (statusEl) {
-        statusEl.textContent = message;
-      }
+    function updateProgress() {
+      const progress = (loadedTasks / totalTasks) * 100;
+      document.getElementById('loadingProgress').style.width = progress + '%';
     }
 
-    // Function to update UI
     function updateTaskUI(taskIndex, isChecked) {
       const checkbox = document.getElementById(`task${taskIndex}`);
       const desc = document.getElementById(`desc${taskIndex}`);
       
-      log(`Updating task ${taskIndex}: ${isChecked ? 'checked' : 'unchecked'}`);
-      
       if (checkbox && desc) {
         checkbox.checked = isChecked;
-        if (isChecked) {
-          desc.classList.add("done");
-        } else {
-          desc.classList.remove("done");
-        }
-        log(`Task ${taskIndex} UI updated successfully`);
-      } else {
-        log(`ERROR: Could not find elements for task ${taskIndex}`);
+        desc.classList.toggle("done", isChecked);
       }
     }
 
-    // Function to handle task completion
     function completeTaskLoad() {
       loadedTasks++;
-      log(`Task loaded: ${loadedTasks}/${totalTasks}`);
+      updateProgress();
       
       if (loadedTasks === totalTasks) {
-        // All tasks loaded, enable checkboxes
+        // Enable all checkboxes
         for (let i = 0; i < totalTasks; i++) {
           const checkbox = document.getElementById(`task${i}`);
-          if (checkbox) {
-            checkbox.disabled = false;
-          }
+          if (checkbox) checkbox.disabled = false;
         }
-        log('All tasks loaded! Checklist ready.');
-        isInitialized = true;
+        
+        document.getElementById('status').textContent = 'MISSION CONTROL ONLINE - ALL SYSTEMS READY';
         setTimeout(() => {
-          const statusEl = document.getElementById('status');
-          if (statusEl) statusEl.style.display = 'none';
+          document.getElementById('status').style.display = 'none';
+          document.querySelector('.loading-bar').style.display = 'none';
         }, 3000);
       }
     }
 
-    // Initialize each task
     async function initializeTask(taskIndex) {
       const checkbox = document.getElementById(`task${taskIndex}`);
-      const desc = document.getElementById(`desc${taskIndex}`);
-      
-      if (!checkbox || !desc) {
-        log(`ERROR: Elements not found for task ${taskIndex}`);
-        completeTaskLoad();
-        return;
-      }
-
       const taskRef = ref(db, `tripChecklist/task${taskIndex}`);
-      log(`Initializing task ${taskIndex}...`);
 
       try {
-        // First, get the current value
         const snapshot = await get(taskRef);
         let isChecked = snapshot.val();
         
-        log(`Task ${taskIndex} Firebase value: ${isChecked}`);
-        
-        // If no value exists, initialize with false
-        if (isChecked === null || isChecked === undefined) {
+        if (isChecked === null) {
           isChecked = false;
           await set(taskRef, false);
-          log(`Task ${taskIndex} initialized to false`);
         }
         
-        // Update UI with loaded state
         updateTaskUI(taskIndex, isChecked);
         
-        // Set up real-time listener for future changes
         onValue(taskRef, (snapshot) => {
           const currentValue = snapshot.val();
-          log(`Task ${taskIndex} listener fired: ${currentValue}`);
-          if (currentValue !== null && isInitialized) {
+          if (currentValue !== null) {
             updateTaskUI(taskIndex, currentValue);
           }
         });
         
-        // Add change event listener
         checkbox.addEventListener("change", async () => {
           const newValue = checkbox.checked;
-          log(`Task ${taskIndex} checkbox changed to: ${newValue}`);
-          try {
-            await set(taskRef, newValue);
-            updateTaskUI(taskIndex, newValue);
-            log(`Task ${taskIndex} saved to Firebase: ${newValue}`);
-          } catch (error) {
-            log(`ERROR saving task ${taskIndex}: ${error.message}`);
-            // Revert checkbox if save failed
-            checkbox.checked = !newValue;
-          }
+          await set(taskRef, newValue);
+          updateTaskUI(taskIndex, newValue);
         });
         
         completeTaskLoad();
         
       } catch (error) {
-        log(`ERROR initializing task ${taskIndex}: ${error.message}`);
-        completeTaskLoad(); // Still complete the load to prevent hanging
+        console.error(`Error initializing task ${taskIndex}:`, error);
+        completeTaskLoad();
       }
     }
 
-    // Initialize Firebase and checklist
     async function initializeChecklist() {
-      try {
-        log('Initializing Firebase...');
-        app = initializeApp(firebaseConfig);
-        db = getDatabase(app);
-        log('Firebase initialized successfully');
-        
-        log('Loading checklist data...');
-        
-        // Initialize all tasks
-        for (let i = 0; i < totalTasks; i++) {
-          await initializeTask(i);
-        }
-        
-      } catch (error) {
-        log(`FATAL ERROR: ${error.message}`);
-        console.error('Firebase initialization failed:', error);
+      for (let i = 0; i < totalTasks; i++) {
+        await initializeTask(i);
       }
     }
 
-    // Start initialization when page loads
-    window.addEventListener('load', () => {
-      log('Page loaded, starting initialization...');
-      initializeChecklist();
-    });
-
-    // Also try DOMContentLoaded in case load doesn't fire
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!app) {
-        log('DOMContentLoaded: Starting initialization...');
-        initializeChecklist();
-      }
-    });
+    window.addEventListener('load', initializeChecklist);
   </script>
 </body>
 </html>
