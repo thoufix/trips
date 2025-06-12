@@ -128,10 +128,14 @@
       const taskRef = ref(db, "tripChecklist/row" + i);
 
       onValue(taskRef, (snapshot) => {
-        const isChecked = snapshot.val();
-        checkbox.checked = !!isChecked;
-        desc.classList.toggle("done", isChecked);
-      });
+  let isChecked = snapshot.val();
+  if (isChecked === null) {
+    set(taskRef, false);
+    isChecked = false;
+  }
+  checkbox.checked = isChecked;
+  desc.classList.toggle("done", isChecked);
+});
 
       checkbox.addEventListener("change", () => {
         set(taskRef, checkbox.checked);
